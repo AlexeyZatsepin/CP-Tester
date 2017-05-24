@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="exported"
+        android:summary="Show only exported content providers"
+        android:title="Filter">
+    </CheckBoxPreference>
+</PreferenceScreen>

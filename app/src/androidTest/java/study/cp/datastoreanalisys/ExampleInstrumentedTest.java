@@ -1,4 +1,4 @@
-package study.network.datastoreanalisys;
+package study.cp.datastoreanalisys;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
