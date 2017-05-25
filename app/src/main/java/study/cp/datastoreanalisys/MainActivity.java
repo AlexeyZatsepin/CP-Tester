@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DataAdapter.OnAdapterItemClickListener {
     private RecyclerView mRecyclerView;
     private CompositeDisposable mCompositeDisposable;
     private DataAdapter mAdapter;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void handleResponse(List<ProviderInfo> result) {
-        mAdapter = new DataAdapter(result);
+        mAdapter = new DataAdapter(result,this);
         mRecyclerView.setAdapter(mAdapter);
         getSupportActionBar().setSubtitle("found: "+result.size());
     }
@@ -111,4 +111,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemClick(ProviderInfo info) {
+        startActivity(DetailsActivity.newIntent(getApplicationContext(),info));
+    }
 }

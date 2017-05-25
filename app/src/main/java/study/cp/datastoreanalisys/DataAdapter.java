@@ -20,10 +20,16 @@ import static study.cp.datastoreanalisys.Utils.contains;
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> implements Filterable {
     private List<ProviderInfo> mFullList;
     private List<ProviderInfo> mFilteredList;
+    private OnAdapterItemClickListener mListener;
 
-    public DataAdapter(List<ProviderInfo> androidList) {
+    interface OnAdapterItemClickListener{
+        void onItemClick(ProviderInfo info);
+    }
+
+    public DataAdapter(List<ProviderInfo> androidList,OnAdapterItemClickListener listener) {
         mFullList = androidList;
         mFilteredList = androidList;
+        mListener = listener;
     }
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,15 +43,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
         holder.mAuthorityView.setText(provider.authority);
         holder.mTvReadPermissions.setText(provider.readPermission);
         holder.mTvWritePermissions.setText(provider.writePermission);
-        if (!provider.exported){
-            holder.itemView.setBackgroundColor(Color.GREEN);
-        }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        holder.itemView.setOnClickListener(view -> mListener.onItemClick(provider));
     }
 
     @Override
