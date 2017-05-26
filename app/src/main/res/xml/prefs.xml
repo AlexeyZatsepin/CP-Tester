@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="exported"
-        android:summary="Show only exported content providers"
-        android:title="Filter">
-    </CheckBoxPreference>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="General">
+        <CheckBoxPreference
+            android:key="exported"
+            android:summary="Show only exported content providers"
+            android:defaultValue="false"
+            android:title="Filter"/>
+
+        <ListPreference
+            android:key="filter"
+            android:title="Filtering"
+            android:entries="@array/filters"
+            android:entryValues="@array/filters_values" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -1,7 +1,11 @@
 package study.cp.datastoreanalisys;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
     private RecyclerView mRecyclerView;
     private CompositeDisposable mCompositeDisposable;
     private DataAdapter mAdapter;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mCompositeDisposable = new CompositeDisposable();
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         initRecyclerView();
         loadProviders();
     }
@@ -51,16 +57,26 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
                 .subscribe(this::handleResponse,this::handleError));
     }
 
+//    private Predicate predicate = new Predicate() {
+//        @Override
+//        public boolean test(Object o) {
+//            sp.getString("list", "не выбрано");
+//            return true;
+//        }
+//    };
+
     private Observable<List<ProviderInfo>> getProviders(){
         return Observable.fromCallable(() -> {
             List<ProviderInfo> info = new ArrayList<>();
-            getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS).stream().filter(pack -> pack.providers != null).forEach(pack -> {
-                for (ProviderInfo provider : pack.providers) {
-                    if (provider.authority != null) {
-                        info.add(provider);
+            for (PackageInfo providerInfo :getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS)){
+                if (providerInfo.providers != null){
+                    for (ProviderInfo provider : providerInfo.providers) {
+                        if (provider.authority != null) {
+                            info.add(provider);
+                        }
                     }
                 }
-            });
+            }
             return info;
         });
     }
@@ -97,15 +113,14 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
                 return true;
             }
         });
+        menu.findItem(R.id.action_settings).setIntent(new Intent(this,SettingsActivity.class));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == R.id.refresh){
+        if(id == R.id.refresh){
             loadProviders();
         }
         return super.onOptionsItemSelected(item);

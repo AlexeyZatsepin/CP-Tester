@@ -1,9 +1,7 @@
 package study.cp.datastoreanalisys;
 
 
-import android.content.Intent;
 import android.content.pm.ProviderInfo;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +39,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
     public void onBindViewHolder(DataAdapter.ViewHolder holder, int position) {
         ProviderInfo provider = mFilteredList.get(position);
         holder.mAuthorityView.setText(provider.authority);
-        holder.mTvReadPermissions.setText(provider.readPermission);
-        holder.mTvWritePermissions.setText(provider.writePermission);
+        if (provider.readPermission!=null) holder.mTvReadPermissions.setText(provider.readPermission); else holder.mTvReadPermissions.setHeight(0);
+        if (provider.writePermission!=null)holder.mTvWritePermissions.setText(provider.writePermission); else holder.mTvWritePermissions.setHeight(0);
         holder.itemView.setOnClickListener(view -> mListener.onItemClick(provider));
     }
 
