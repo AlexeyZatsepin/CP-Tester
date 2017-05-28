@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="vertical"
-    android:paddingTop="16dp"
-    tools:context="MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Content provider"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="30dp" />
-    
-    <EditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        tools:context="MainActivity">
+
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="Content provider"
+            android:textSize="30dp" />
+
+        <EditText
             android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
             android:hint="Name"
             android:textColorHint="@android:color/holo_blue_light" />
-    
-    <EditText
+
+        <EditText
+            android:id="@+id/editText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText3"
             android:hint="Password"
             android:textColorHint="@android:color/holo_blue_bright" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickAddName"
-
-        android:text="Add Name" />
-
-    <Button
+        <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Retrive student"
-            android:id="@+id/button"
-            android:layout_below="@id/button2"
+            android:onClick="onClickAddName"
 
-            android:onClick="onClickRetrieveStudents"/>
-</LinearLayout>
+            android:text="Add Name" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button2"
+            android:onClick="onClickRetrieveStudents"
+            android:text="Retrive users" />
+    </LinearLayout>
+</ScrollView>
 

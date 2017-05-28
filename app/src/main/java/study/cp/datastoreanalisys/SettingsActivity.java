@@ -1,5 +1,6 @@
 package study.cp.datastoreanalisys;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ public class SettingsActivity extends PreferenceActivity {
 
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
         Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar_settings, root, false);
+        bar.setTitleTextColor(Color.WHITE);
         root.addView(bar, 0); // insert at top
         bar.setNavigationOnClickListener(v -> finish());
     }

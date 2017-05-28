@@ -16,15 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        User user = new User("alex","aasdasd");
-        ContentValues values = new ContentValues();
-        values.put("name", user.getName());
-        values.put("password", user.getPassword());
-
-        getContentResolver().insert(Uri.parse("content://com.bank.doc.users"), values);
-        Cursor cursor = managedQuery(Uri.parse("content://com.bank.doc.users"), null, null, null, null);
-        Toast.makeText(this, String.valueOf(cursor.getColumnCount()), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, cursor.getString(0), Toast.LENGTH_SHORT).show();
+//        User user = new User("alex","aasdasd");
+//        ContentValues values = new ContentValues();
+//        values.put("name", user.getName());
+//        values.put("password", user.getPassword());
+//
+//        getContentResolver().insert(Uri.parse("content://com.bank.doc.users"), values);
+//        Cursor cursor = managedQuery(Uri.parse("content://com.bank.doc.users"), null, null, null, null);
+//        Toast.makeText(this, String.valueOf(cursor.getColumnCount()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, cursor.getString(0), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = getContentResolver().insert(
                 UsersRelationProvider.CONTENT_URI, values);
 
+        getContentResolver().insert(Uri.parse("com.bank.doc.users"), values);
+        getContentResolver().insert(Uri.parse("com.bank.kv.users"), values);
+
         Toast.makeText(getBaseContext(),
                 uri.toString(), Toast.LENGTH_LONG).show();
     }
@@ -51,12 +54,27 @@ public class MainActivity extends AppCompatActivity {
 
         if (c.moveToFirst()) {
             do {
-                Toast.makeText(this,
+                Toast.makeText(this,"SQL:"+
                         c.getString(c.getColumnIndex(UsersRelationProvider._ID))+
                         ", "+c.getString(c.getColumnIndex(UsersRelationProvider.NAME))+
                         ", "+c.getString(c.getColumnIndex(UsersRelationProvider.PASSWORD)),
                         Toast.LENGTH_SHORT).show();
             } while (c.moveToNext());
         }
+        c.close();
+        c = managedQuery(Uri.parse("com.bank.doc.users"),null,null,null,null);
+        if (c.moveToFirst()) {
+            do {
+                Toast.makeText(this,"Documents:"+ c.getColumnNames(), Toast.LENGTH_SHORT).show();
+            } while (c.moveToNext());
+        }
+        c.close();
+        c = managedQuery(Uri.parse("com.bank.kv.users"),null,null,null,null);
+        if (c.moveToFirst()) {
+            do {
+                Toast.makeText(this,"Keys:"+ c.getColumnNames(), Toast.LENGTH_SHORT).show();
+            } while (c.moveToNext());
+        }
+        c.close();
     }
 }
