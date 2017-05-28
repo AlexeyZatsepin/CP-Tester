@@ -53,7 +53,6 @@ public class UsersDocProvider extends ContentProvider{
             query = database.getView(projection[0]).createQuery();
         }
         if (selection!=null){
-
         }
         final List<Document> docs = new ArrayList<>();
         try {
@@ -66,13 +65,11 @@ public class UsersDocProvider extends ContentProvider{
             e.printStackTrace();
         }
         return new AbstractCursor() {
-            @Override
-            public int getCount() {
+            @Override public int getCount() {
                 return docs.size();
             }
 
-            @Override
-            public String[] getColumnNames() {
+            @Override public String[] getColumnNames() {
                 String[] str = new String[docs.get(0).getProperties().keySet().size()];
                 int cur = 0;
                 for (Object obj: docs.get(0).getProperties().keySet()){
@@ -81,38 +78,26 @@ public class UsersDocProvider extends ContentProvider{
                 return str;
             }
 
-            @Override
-            public String getString(int column) {
+            @Override public String getString(int column) {
                 return docs.get(column).getProperties().toString();
             }
 
-            @Override
-            public short getShort(int column) {
+            @Override public short getShort(int column) {
                 return 0;
             }
-
-            @Override
-            public int getInt(int column) {
+            @Override public int getInt(int column) {
                 return 0;
             }
-
-            @Override
-            public long getLong(int column) {
+            @Override public long getLong(int column) {
                 return 0;
             }
-
-            @Override
-            public float getFloat(int column) {
+            @Override public float getFloat(int column) {
                 return 0;
             }
-
-            @Override
-            public double getDouble(int column) {
+            @Override public double getDouble(int column) {
                 return 0;
             }
-
-            @Override
-            public boolean isNull(int column) {
+            @Override public boolean isNull(int column) {
                 return false;
             }
         };
@@ -155,5 +140,6 @@ public class UsersDocProvider extends ContentProvider{
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
     }
+
 
 }

@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.io.FileNotFoundException;
 
 import static study.cp.datastoreanalisys.Utils.bytesToHexString;
 
@@ -24,6 +25,8 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_PROVIDER = "provider";
+
+    private int section;
 
     public PlaceholderFragment() {
     }
@@ -41,7 +44,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         provider = getArguments().getParcelable(ARG_PROVIDER);
-        int section = getArguments().getInt(ARG_SECTION_NUMBER);
+        section = getArguments().getInt(ARG_SECTION_NUMBER);
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
         TextView label = (TextView) rootView.findViewById(R.id.section_label);
         label.setText(getString(R.string.section_authority, provider.authority));
@@ -57,14 +60,26 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         et = (EditText) rootView.findViewById(R.id.injection_et);
         if (section == 0) {
             et.setText(R.string.sql_injection);
+        }else if(section == 1){
+
+        }else{
+
         }
         return rootView;
     }
 
     @Override
     public void onClick(View view) {
-        String result = getSimpleResult(String.valueOf(et.getText()));
-        Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
+        String result;
+        if (isFile()){
+            result = "This content provider are build on file";
+        }else if (section==0){
+            result = getSQLResult(String.valueOf(et.getText()));
+        }else if (section==1){
+            result = getJSONResult(String.valueOf(et.getText()));
+        }else{
+            result = getKVResult(String.valueOf(et.getText()));
+        }
         Drawable icon = getResources().getDrawable(R.drawable.ic_warning, null);
         if (!(result.contains("Denial") || result.contains("Exception"))) {
             icon = getResources().getDrawable(R.drawable.ic_succes, null);
@@ -78,7 +93,44 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
 
     }
 
-    public String getSimpleResult(String... query) {
+    public boolean isFile(){
+        try {
+            return getActivity().getContentResolver().openInputStream(Uri.parse("content://" + provider.authority))!=null;
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+    }
+
+    public String getJSONResult(String...query){
+        Uri uri = Uri.parse("content://" + provider.authority);
+        Cursor c = getActivity().getContentResolver().query(uri, query, null, null, null);
+        if (c.getCount()==0){
+            return "Documents not found";
+        }else{
+            StringBuilder res = new StringBuilder();
+            String[] all = c.getColumnNames();
+            for (int i =0; i< c.getCount();i++){
+                res.append(all[i]).append(" ").append(c.getString(i)).append("\n");
+            }
+            return res.toString();
+        }
+    }
+
+    public String getKVResult(String...query){
+        Uri uri = Uri.parse("content://" + provider.authority);
+        Cursor c = getActivity().getContentResolver().query(uri, query, null, null, null);
+        if (c.getColumnCount()==0){
+            return "Keys not found";
+        }else{
+            StringBuilder res = new StringBuilder();
+            for (int i =0; i< c.getColumnCount();i++){
+                res.append(c.getString(i)+"\n");
+            }
+            return res.toString();
+        }
+    }
+
+    public String getSQLResult(String...query) {
         String s = "";
         try {
             Uri uri = Uri.parse("content://" + provider.authority);
@@ -95,10 +147,9 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
                 do {
                     for (int i = 0; i < col_c; i++) {
                         if (Columns[i].toLowerCase().contains("image")) {
-                            byte[] Image = c.getBlob(i);
+                            byte[] blob = c.getBlob(i);
                             //iv.setImageBitmap(BitmapFactory.decodeByteArray(Image,0,Image.length));
                             //s += "<IMAGE?>";
-                            byte[] blob = c.getBlob(i);
                             s += bytesToHexString(blob);
                         } else {
                             try {

@@ -38,4 +38,7 @@ dependencies {
 
     compile 'com.couchbase.lite:couchbase-lite-android:1.4.0'
     //    compile 'im.amomo.leveldb:leveldb:1.0.1@aar'
+
+    compile 'com.snappydb:snappydb-lib:0.5.2'
+    compile 'com.esotericsoftware.kryo:kryo:2.24.0'
 }

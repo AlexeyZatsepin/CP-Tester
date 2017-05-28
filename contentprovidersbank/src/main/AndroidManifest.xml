@@ -18,11 +18,15 @@
         </activity>
         <provider
             android:name=".UsersRelationProvider"
-            android:authorities="com.example.lite.users"
+            android:authorities="com.bank.lite.users"
             android:exported="true" />
         <provider
             android:name=".UsersDocProvider"
-            android:authorities="com.example.doc.users"
+            android:authorities="com.bank.doc.users"
+            android:exported="true" />
+        <provider
+            android:name=".UsersKVProvider"
+            android:authorities="com.bank.kv.users"
             android:exported="true" />
     </application>
 

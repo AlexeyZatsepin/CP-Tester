@@ -4,8 +4,8 @@
         android:key="pref_key_storage_settings"
         android:title="General">
         <CheckBoxPreference
-            android:key="exported"
-            android:summary="Show only exported content providers"
+            android:key="need_filter"
+            android:summary="Enable filtering"
             android:defaultValue="false"
             android:title="Filter"/>
 

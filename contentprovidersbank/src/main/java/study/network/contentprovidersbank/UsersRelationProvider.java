@@ -20,7 +20,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class UsersRelationProvider extends ContentProvider {
-    static final String PROVIDER_NAME = "com.example.lite.users";
+    static final String PROVIDER_NAME = "com.bank.lite.users";
     static final String URL = "content://" + PROVIDER_NAME + "/users";
     static final Uri CONTENT_URI = Uri.parse(URL);
 

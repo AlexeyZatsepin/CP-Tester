@@ -8,7 +8,7 @@
     <string name="section_authority">Authority: %1$s</string>
     <string name="section_permissions">Read permissions: %1$s \nWrite permissions: %2$s</string>
     <string name="section_other">Package: %1$s \nProcess name: %2$s \nExported: %3$b \nEnabled: %4$b</string>
-    <string name="sql_injection">* from sqlite_master—-</string>
+    <string name="sql_injection">* from sqlite_master--</string>
 
     <string-array name="help_info">
         <item>Try SQL Injection:</item>

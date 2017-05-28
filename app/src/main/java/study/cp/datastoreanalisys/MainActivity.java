@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
                 if (providerInfo.providers != null){
                     for (ProviderInfo provider : providerInfo.providers) {
                         if (provider.authority != null) {
-                            info.add(provider);
+                            if (!sp.getBoolean("need_filter",false)){
+                                info.add(provider);
+                            }
                         }
                     }
                 }
