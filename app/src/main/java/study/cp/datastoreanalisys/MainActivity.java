@@ -19,11 +19,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static study.cp.datastoreanalisys.Utils.getSQLResult;
 
 public class MainActivity extends AppCompatActivity implements DataAdapter.OnAdapterItemClickListener {
     private RecyclerView mRecyclerView;
@@ -56,14 +59,6 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse,this::handleError));
     }
-
-//    private Predicate predicate = new Predicate() {
-//        @Override
-//        public boolean test(Object o) {
-//            sp.getString("list", "не выбрано");
-//            return true;
-//        }
-//    };
 
     private Observable<List<ProviderInfo>> getProviders(){
         return Observable.fromCallable(() -> {
@@ -131,5 +126,12 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
     @Override
     public void onItemClick(ProviderInfo info) {
         startActivity(DetailsActivity.newIntent(getApplicationContext(),info));
+    }
+
+    @Override
+    public int onButtonClick(ProviderInfo info) {
+        String result = getSQLResult(getApplicationContext(),info, getString(R.string.sql_injection));
+        if (result.contains("CREATE TABLE")) return -1;
+        else return 100;
     }
 }

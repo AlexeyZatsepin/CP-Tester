@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 
-import static study.cp.datastoreanalisys.Utils.bytesToHexString;
+import static study.cp.datastoreanalisys.Utils.getSQLResult;
 
 public class PlaceholderFragment extends Fragment implements View.OnClickListener {
 
@@ -74,7 +74,7 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         if (isFile()){
             result = "This content provider are build on file";
         }else if (section==0){
-            result = getSQLResult(String.valueOf(et.getText()));
+            result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
         }else if (section==1){
             result = getJSONResult(String.valueOf(et.getText()));
         }else{
@@ -130,43 +130,4 @@ public class PlaceholderFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public String getSQLResult(String...query) {
-        String s = "";
-        try {
-            Uri uri = Uri.parse("content://" + provider.authority);
-            Cursor c = getActivity().getContentResolver().query(uri, query, null, null, null); //TODO result
-            int col_c = c.getColumnCount();
-            String[] Columns = new String[col_c];
-            for (int i = 0; i < col_c; i++) {
-                s += c.getColumnName(i);
-                s += ":";
-                Columns[i] = c.getColumnName(i);
-            }
-            s += "\n";
-            if (c.moveToFirst()) {
-                do {
-                    for (int i = 0; i < col_c; i++) {
-                        if (Columns[i].toLowerCase().contains("image")) {
-                            byte[] blob = c.getBlob(i);
-                            //iv.setImageBitmap(BitmapFactory.decodeByteArray(Image,0,Image.length));
-                            //s += "<IMAGE?>";
-                            s += bytesToHexString(blob);
-                        } else {
-                            try {
-                                s += c.getString(i);
-                            } catch (Exception e) {
-                                byte[] blob = c.getBlob(i);
-                                s += bytesToHexString(blob);
-                            }
-                        }
-                        s += ";";
-                    }
-                    s += "\n";
-                } while (c.moveToNext());
-            }
-        } catch (Exception e) {
-            s += e.getMessage();
-        }
-        return s;
-    }
 }

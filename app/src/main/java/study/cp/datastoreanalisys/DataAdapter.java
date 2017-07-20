@@ -10,6 +10,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
 
     interface OnAdapterItemClickListener{
         void onItemClick(ProviderInfo info);
+        int onButtonClick(ProviderInfo info);
     }
+
 
     public DataAdapter(List<ProviderInfo> androidList,OnAdapterItemClickListener listener) {
         mFullList = androidList;
@@ -42,7 +46,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
         if (provider.readPermission!=null) holder.mTvReadPermissions.setText(provider.readPermission); else holder.mTvReadPermissions.setHeight(0);
         if (provider.writePermission!=null)holder.mTvWritePermissions.setText(provider.writePermission); else holder.mTvWritePermissions.setHeight(0);
         holder.itemView.setOnClickListener(view -> mListener.onItemClick(provider));
+        holder.button.setIndeterminateProgressMode(true);
+        holder.button.setOnClickListener(view -> {
+                holder.button.setProgress(50);
+                holder.button.setProgress(mListener.onButtonClick(provider));
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -81,12 +91,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView mAuthorityView, mTvReadPermissions, mTvWritePermissions;
+        CircularProgressButton button;
 
         public ViewHolder(View view) {
             super(view);
             mAuthorityView = (TextView)view.findViewById(R.id.tv_name);
             mTvReadPermissions = (TextView)view.findViewById(R.id.tv_version);
             mTvWritePermissions = (TextView)view.findViewById(R.id.tv_api_level);
+            button = (CircularProgressButton) view.findViewById(R.id.progress);
         }
     }
 }

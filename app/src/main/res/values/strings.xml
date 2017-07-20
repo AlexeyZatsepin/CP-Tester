@@ -27,4 +27,8 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string name="Start">Test</string>
+    <string name="Error">Error</string>
+    <string name="Complete">Complete</string>
 </resources>
