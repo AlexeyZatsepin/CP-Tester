@@ -28,6 +28,7 @@ import study.cp.datastoreanalisys.DataAdapter;
 import study.cp.datastoreanalisys.R;
 
 import static study.cp.datastoreanalisys.Utils.getSQLResult;
+import static study.cp.datastoreanalisys.Utils.getStatus;
 
 public class MainActivity extends AppCompatActivity implements DataAdapter.OnAdapterItemClickListener {
     private RecyclerView mRecyclerView;
@@ -97,14 +98,12 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
         for (int i = 0; i < result.size(); i++) {
             ProviderInfo info = result.get(i);
             DataAdapter.ViewHolder holder = (DataAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
-            int status = 50;
-            holder.getButton().setProgress(status);
+            holder.getButton().setProgress(50);
             String str = getSQLResult(getApplicationContext(), info, getString(R.string.sql_injection));
-            if (str.contains("CREATE TABLE")) status = -1;
-            else status = 100;
-            holder.getButton().setProgress(status);
+            holder.getButton().setProgress(getStatus(str));
         }
     }
+
 
     private void handleError(Throwable error) {
         Toast.makeText(this, "Error "+error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

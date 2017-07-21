@@ -67,4 +67,11 @@ public final class Utils {
         }
         return s;
     }
+
+    public static int getStatus(String str) {
+        int status;
+        if (str.contains("CREATE TABLE")) status = -1;
+        else status = 100;
+        return status;
+    }
 }

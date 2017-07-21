@@ -9,19 +9,22 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.dd.CircularProgressButton;
 
 import java.io.FileNotFoundException;
 
 import study.cp.datastoreanalisys.R;
 
 import static study.cp.datastoreanalisys.Utils.getSQLResult;
+import static study.cp.datastoreanalisys.Utils.getStatus;
 
 public class QueryFragment extends Fragment implements View.OnClickListener {
 
     private EditText et;
+    private CircularProgressButton button;
     private ProviderInfo provider;
 
     private static final String ARG_PROVIDER = "provider";
@@ -44,7 +47,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_details_query, container, false);
         TextView help = (TextView) rootView.findViewById(R.id.help);
         help.setText(getResources().getString(R.string.help_info));
-        Button button = (Button) rootView.findViewById(R.id.injection_button);
+        button = (CircularProgressButton) rootView.findViewById(R.id.injection_button);
         button.setOnClickListener(this);
         et = (EditText) rootView.findViewById(R.id.injection_et);
         et.setText(R.string.sql_injection);
@@ -54,6 +57,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         String result;
+        button.setProgress(50);
         if (isFile()){
             result = "This content provider are build on file";
         }else {
@@ -63,6 +67,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         if (!(result.contains("Denial") || result.contains("Exception"))) {
             icon = getResources().getDrawable(R.drawable.ic_succes, null);
         }
+        button.setProgress(getStatus(result));
         new AlertDialog.Builder(getContext())
                 .setTitle("Result")
                 .setIcon(icon)

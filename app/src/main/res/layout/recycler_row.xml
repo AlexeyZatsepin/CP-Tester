@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:textColor="@color/cpb_white"
             android:textSize="18sp"
-            card_view:cpb_cornerRadius="48dp"
+            card_view:cpb_cornerRadius="@dimen/corner_radius"
             card_view:cpb_iconComplete="@drawable/ic_action_done"
             card_view:cpb_iconError="@drawable/ic_action_error"
             card_view:cpb_textIdle="Test" />

@@ -27,4 +27,5 @@
     <string name="tab_title_1">info</string>
     <string name="tab_title_2">schema</string>
     <string name="tab_title_3">query</string>
+    <string name="details_query_button">Inject!</string>
 </resources>
