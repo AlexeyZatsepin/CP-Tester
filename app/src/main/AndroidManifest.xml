@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,21 +35,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailsActivity"
+            android:name=".activity.DetailsActivity"
             android:label="@string/title_activity_details"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="study.cp.datastoreanalisys.MainActivity" />
+                android:value="study.cp.datastoreanalisys.activity.MainActivity" />
         </activity>
         <activity
-                    android:name=".SettingsActivity"
+                    android:name=".activity.SettingsActivity"
                     android:label="Settings"
-                    android:parentActivityName=".MainActivity">
+                    android:parentActivityName=".activity.MainActivity">
                     <meta-data
                         android:name="android.support.PARENT_ACTIVITY"
-                        android:value="study.cp.datastoreanalisys.MainActivity" />
+                        android:value="study.cp.datastoreanalisys.activity.MainActivity" />
                 </activity>
     </application>
 

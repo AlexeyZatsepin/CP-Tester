@@ -1,4 +1,4 @@
-package study.cp.datastoreanalisys;
+package study.cp.datastoreanalisys.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+
+import study.cp.datastoreanalisys.R;
 
 public class SettingsActivity extends PreferenceActivity {
     @Override

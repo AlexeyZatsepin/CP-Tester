@@ -1,4 +1,4 @@
-package study.cp.datastoreanalisys;
+package study.cp.datastoreanalisys.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import study.cp.datastoreanalisys.DataAdapter;
+import study.cp.datastoreanalisys.R;
 
 import static study.cp.datastoreanalisys.Utils.getSQLResult;
 
@@ -60,6 +61,14 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
                 .subscribe(this::handleResponse,this::handleError));
     }
 
+    private void testProviders() {
+        mCompositeDisposable.add(getProviders()
+                .observeOn(Schedulers.single())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleTestResponse,this::handleError));
+    }
+
+
     private Observable<List<ProviderInfo>> getProviders(){
         return Observable.fromCallable(() -> {
             List<ProviderInfo> info = new ArrayList<>();
@@ -77,10 +86,24 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
             return info;
         });
     }
+
     private void handleResponse(List<ProviderInfo> result) {
         mAdapter = new DataAdapter(result,this);
         mRecyclerView.setAdapter(mAdapter);
         getSupportActionBar().setSubtitle("found: "+result.size());
+    }
+
+    private void handleTestResponse(List<ProviderInfo> result) {
+        for (int i = 0; i < result.size(); i++) {
+            ProviderInfo info = result.get(i);
+            DataAdapter.ViewHolder holder = (DataAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+            int status = 50;
+            holder.getButton().setProgress(status);
+            String str = getSQLResult(getApplicationContext(), info, getString(R.string.sql_injection));
+            if (str.contains("CREATE TABLE")) status = -1;
+            else status = 100;
+            holder.getButton().setProgress(status);
+        }
     }
 
     private void handleError(Throwable error) {
@@ -119,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
         int id = item.getItemId();
         if(id == R.id.refresh){
             loadProviders();
+        }else if(id == R.id.play){
+            testProviders();
         }
         return super.onOptionsItemSelected(item);
     }

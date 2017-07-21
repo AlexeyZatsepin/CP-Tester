@@ -22,11 +22,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
     private List<ProviderInfo> mFilteredList;
     private OnAdapterItemClickListener mListener;
 
-    interface OnAdapterItemClickListener{
+    public interface OnAdapterItemClickListener{
         void onItemClick(ProviderInfo info);
         int onButtonClick(ProviderInfo info);
     }
-
 
     public DataAdapter(List<ProviderInfo> androidList,OnAdapterItemClickListener listener) {
         mFullList = androidList;
@@ -53,11 +52,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
         });
     }
 
-
     @Override
     public int getItemCount() {
         return mFilteredList.size();
     }
+
 
     @Override
     public Filter getFilter() {
@@ -90,8 +89,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mAuthorityView, mTvReadPermissions, mTvWritePermissions;
-        CircularProgressButton button;
+        private TextView mAuthorityView, mTvReadPermissions, mTvWritePermissions;
+        private CircularProgressButton button;
 
         public ViewHolder(View view) {
             super(view);
@@ -99,6 +98,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
             mTvReadPermissions = (TextView)view.findViewById(R.id.tv_version);
             mTvWritePermissions = (TextView)view.findViewById(R.id.tv_api_level);
             button = (CircularProgressButton) view.findViewById(R.id.progress);
+        }
+
+        public CircularProgressButton getButton(){
+            return button;
         }
     }
 }

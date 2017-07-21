@@ -7,31 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".PlaceholderFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/section_title"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16dp" />
-
-    <TextView
-        android:id="@+id/section_permissions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent" />
-
-    <TextView
-        android:id="@+id/section_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    tools:context=".fragments.QueryFragment">
 
     <TextView
         android:id="@+id/help"
@@ -52,4 +28,5 @@
         android:background="@color/colorAccent"
         android:text="Inject!"
         android:textColor="@android:color/white" />
+
 </LinearLayout>

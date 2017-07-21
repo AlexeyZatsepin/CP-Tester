@@ -9,6 +9,10 @@ import java.util.Formatter;
 
 public final class Utils {
 
+    public final static int NUMBER_INFO = 0;
+    public final static int NUMBER_SCHEMA = 1;
+    public final static int NUMBER_QUERY = 2;
+
     public static boolean contains(ProviderInfo info, String charString){
         if ((info.readPermission==null)||(info.writePermission==null))
             return info.authority.toLowerCase().contains(charString);
