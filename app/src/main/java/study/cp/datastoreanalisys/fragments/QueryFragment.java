@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 
@@ -18,8 +19,8 @@ import java.io.FileNotFoundException;
 
 import study.cp.datastoreanalisys.R;
 
-import static study.cp.datastoreanalisys.Utils.getSQLResult;
-import static study.cp.datastoreanalisys.Utils.getStatus;
+import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
+import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 
 public class QueryFragment extends Fragment implements View.OnClickListener {
 
@@ -56,24 +57,34 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String result;
-        button.setProgress(50);
-        if (isFile()){
-            result = "This content provider are build on file";
-        }else {
-            result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
+        try{
+            String result;
+            button.setProgress(50);
+            if (isFile()){
+                result = "This content provider are build on file";
+            }else {
+                result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
+            }
+            Drawable icon = getResources().getDrawable(R.drawable.ic_warning, null);
+            int status = getStatus(result);
+            if (status==-1) {
+                icon = getResources().getDrawable(R.drawable.ic_succes, null);
+            }
+            button.setProgress(status);
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Result")
+                    .setIcon(icon)
+                    .setMessage(result)
+                    .setPositiveButton("Ok", (dialog, which) -> {
+                    }).create().show();
+        }catch (Throwable e){
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }finally {
+            if(button.getProgress()==50){
+                button.setProgress(-1);
+            }
         }
-        Drawable icon = getResources().getDrawable(R.drawable.ic_warning, null);
-        if (!(result.contains("Denial") || result.contains("Exception"))) {
-            icon = getResources().getDrawable(R.drawable.ic_succes, null);
-        }
-        button.setProgress(getStatus(result));
-        new AlertDialog.Builder(getContext())
-                .setTitle("Result")
-                .setIcon(icon)
-                .setMessage(result)
-                .setPositiveButton("Ok", (dialog, which) -> {
-                }).create().show();
+
     }
 
     public boolean isFile(){

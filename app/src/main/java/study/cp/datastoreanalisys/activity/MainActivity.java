@@ -26,9 +26,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import study.cp.datastoreanalisys.DataAdapter;
 import study.cp.datastoreanalisys.R;
+import study.cp.datastoreanalisys.ContentProviderHelper;
 
-import static study.cp.datastoreanalisys.Utils.getSQLResult;
-import static study.cp.datastoreanalisys.Utils.getStatus;
+import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
+import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 
 public class MainActivity extends AppCompatActivity implements DataAdapter.OnAdapterItemClickListener {
     private RecyclerView mRecyclerView;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
 
     private void testProviders() {
         mCompositeDisposable.add(getProviders()
-                .observeOn(Schedulers.single())
+                .observeOn(AndroidSchedulers.mainThread())//Schedulers.single()
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleTestResponse,this::handleError));
     }
@@ -100,7 +101,9 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
             DataAdapter.ViewHolder holder = (DataAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
             holder.getButton().setProgress(50);
             String str = getSQLResult(getApplicationContext(), info, getString(R.string.sql_injection));
-            holder.getButton().setProgress(getStatus(str));
+            int status = getStatus(str);
+            ContentProviderHelper.cache.put(info,status);
+            holder.getButton().setProgress(status);
         }
     }
 
@@ -155,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
     @Override
     public int onButtonClick(ProviderInfo info) {
         String result = getSQLResult(getApplicationContext(),info, getString(R.string.sql_injection));
-        if (result.contains("CREATE TABLE")) return -1;
-        else return 100;
+        int status = getStatus(result);
+        ContentProviderHelper.cache.put(info,status);
+        return status;
     }
 }

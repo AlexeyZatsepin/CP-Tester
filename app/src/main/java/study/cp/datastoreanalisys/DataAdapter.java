@@ -15,7 +15,7 @@ import com.dd.CircularProgressButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import static study.cp.datastoreanalisys.Utils.contains;
+import static study.cp.datastoreanalisys.ContentProviderHelper.contains;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> implements Filterable {
     private List<ProviderInfo> mFullList;

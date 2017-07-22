@@ -3,6 +3,11 @@ package study.cp.datastoreanalisys.fragments;
 import android.content.pm.ProviderInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import study.cp.datastoreanalisys.R;
 
 
 public class SchemaFragment extends Fragment {
@@ -20,5 +25,13 @@ public class SchemaFragment extends Fragment {
         args.putParcelable(ARG_PROVIDER, provider);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        provider = getArguments().getParcelable(ARG_PROVIDER);
+        View rootView = inflater.inflate(R.layout.fragment_details_schema, container, false);
+        return rootView;
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DatastoreAnalysis</string>
+    <string name="app_name">CP-Tester</string>
     <string name="title_activity_details">Details</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
@@ -13,7 +13,7 @@
 
     <string-array name="filters">
         <item>enabled</item>
-        <item>with prmissions</item>
+        <item>with permissions</item>
         <item>all</item>
     </string-array>
 
@@ -28,4 +28,9 @@
     <string name="tab_title_2">schema</string>
     <string name="tab_title_3">query</string>
     <string name="details_query_button">Inject!</string>
+    <string name="content_description">Status</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_test_all">Test All</string>
+    <string name="menu_settings">Settings</string>
 </resources>

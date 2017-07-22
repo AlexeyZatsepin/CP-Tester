@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import study.cp.datastoreanalisys.R;
+import study.cp.datastoreanalisys.ContentProviderHelper;
 
 public class InfoFragment extends Fragment {
     private ProviderInfo provider;
@@ -37,7 +39,11 @@ public class InfoFragment extends Fragment {
         perms.setText(getString(R.string.section_permissions, provider.readPermission, provider.writePermission));
         TextView other = (TextView) rootView.findViewById(R.id.section_other);
         other.setText(getString(R.string.section_other, provider.packageName, provider.processName, provider.exported, provider.enabled));
-        TextView help = (TextView) rootView.findViewById(R.id.help);
+        ImageButton image = (ImageButton) rootView.findViewById(R.id.status_image);
+        if (ContentProviderHelper.cache.containsKey(provider)){
+            if (ContentProviderHelper.cache.get(provider)==-1) image.setImageResource(R.drawable.ic_succes);
+            else if (ContentProviderHelper.cache.get(provider)==100) image.setImageResource(R.drawable.ic_warning);
+        }else image.setVisibility(View.GONE);
         return rootView;
     }
 }

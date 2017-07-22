@@ -19,9 +19,9 @@ import study.cp.datastoreanalisys.fragments.InfoFragment;
 import study.cp.datastoreanalisys.fragments.QueryFragment;
 import study.cp.datastoreanalisys.fragments.SchemaFragment;
 
-import static study.cp.datastoreanalisys.Utils.NUMBER_INFO;
-import static study.cp.datastoreanalisys.Utils.NUMBER_QUERY;
-import static study.cp.datastoreanalisys.Utils.NUMBER_SCHEMA;
+import static study.cp.datastoreanalisys.ContentProviderHelper.NUMBER_INFO;
+import static study.cp.datastoreanalisys.ContentProviderHelper.NUMBER_QUERY;
+import static study.cp.datastoreanalisys.ContentProviderHelper.NUMBER_SCHEMA;
 
 public class DetailsActivity extends AppCompatActivity {
 
