@@ -60,10 +60,15 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         try{
             String result;
             button.setProgress(50);
-            if (isFile()){
-                result = "This content provider are build on file";
+            if (provider.exported){
+                if (isFile()){
+                    result = "This content provider are build on file";
+                }else {
+                    result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
+                }
             }else {
-                result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
+                button.setProgress(-1);
+                return;
             }
             Drawable icon = getResources().getDrawable(R.drawable.ic_warning, null);
             int status = getStatus(result);

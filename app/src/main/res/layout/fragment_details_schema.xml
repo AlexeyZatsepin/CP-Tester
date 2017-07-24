@@ -7,15 +7,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".fragments.QueryFragment"
+    tools:context=".fragments.SchemaFragment"
     android:weightSum="1">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_schema"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Not implemented"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:layout_weight="0.14" />
+        android:visibility="invisible"
+        android:text="Schema unavailable"/>
 
 </LinearLayout>
