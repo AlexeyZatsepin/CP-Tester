@@ -19,7 +19,7 @@ import study.cp.datastoreanalisys.R;
 
 import static study.cp.datastoreanalisys.ContentProviderHelper.contains;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> implements Filterable {
+public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHolder> implements Filterable {
     private List<ProviderInfo> mFullList;
     private List<ProviderInfo> mFilteredList;
     private OnAdapterItemClickListener mListener;
@@ -29,19 +29,19 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
         int onButtonClick(ProviderInfo info);
     }
 
-    public DataAdapter(List<ProviderInfo> androidList,OnAdapterItemClickListener listener) {
+    public ProviderAdapter(List<ProviderInfo> androidList, OnAdapterItemClickListener listener) {
         mFullList = androidList;
         mFilteredList = androidList;
         mListener = listener;
     }
     @Override
-    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProviderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DataAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ProviderAdapter.ViewHolder holder, int position) {
         ProviderInfo provider = mFilteredList.get(position);
         holder.mAuthorityView.setText(provider.authority);
         if (provider.readPermission!=null) holder.mTvReadPermissions.setText(provider.readPermission); else holder.mTvReadPermissions.setHeight(0);

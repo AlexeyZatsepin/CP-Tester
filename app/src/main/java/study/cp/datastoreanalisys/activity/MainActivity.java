@@ -24,17 +24,17 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import study.cp.datastoreanalisys.adapter.DataAdapter;
+import study.cp.datastoreanalisys.adapter.ProviderAdapter;
 import study.cp.datastoreanalisys.R;
 import study.cp.datastoreanalisys.ContentProviderHelper;
 
 import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
 import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 
-public class MainActivity extends AppCompatActivity implements DataAdapter.OnAdapterItemClickListener {
+public class MainActivity extends AppCompatActivity implements ProviderAdapter.OnAdapterItemClickListener {
     private RecyclerView mRecyclerView;
     private CompositeDisposable mCompositeDisposable;
-    private DataAdapter mAdapter;
+    private ProviderAdapter mAdapter;
     private SharedPreferences sp;
 
     @Override
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
     }
 
     private void handleResponse(List<ProviderInfo> result) {
-        mAdapter = new DataAdapter(result,this);
+        mAdapter = new ProviderAdapter(result,this);
         mRecyclerView.setAdapter(mAdapter);
         getSupportActionBar().setSubtitle("found: "+result.size());
     }
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements DataAdapter.OnAda
     private void handleTestResponse(List<ProviderInfo> result) {
         for (int i = 0; i < result.size(); i++) {
             ProviderInfo info = result.get(i);
-            DataAdapter.ViewHolder holder = (DataAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
+            ProviderAdapter.ViewHolder holder = (ProviderAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(i);
             holder.getButton().setProgress(50);
             String str = getSQLResult(getApplicationContext(), info, getString(R.string.sql_injection));
             int status = getStatus(str);

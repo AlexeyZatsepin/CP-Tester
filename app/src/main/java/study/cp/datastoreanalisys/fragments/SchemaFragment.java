@@ -1,6 +1,7 @@
 package study.cp.datastoreanalisys.fragments;
 
 import android.content.pm.ProviderInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import study.cp.datastoreanalisys.R;
-import study.cp.datastoreanalisys.adapter.EntityAdapter;
+import study.cp.datastoreanalisys.adapter.GridAdapter;
 
 import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
 import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
@@ -53,16 +54,19 @@ public class SchemaFragment extends Fragment {
             for (String name: resultToMap.keySet()){
                 TextView tv = new TextView(getContext());
                 tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv.setTextColor(Color.GREEN);
+                tv.setTextSize(20);
                 tv.setText(name);
                 linearLayout.addView(tv);
                 GridView grid = new GridView(getContext());
                 grid.setNumColumns(3);
                 grid.setHorizontalSpacing(10);
                 grid.setVerticalSpacing(10);
-                grid.setColumnWidth(100);
+//                grid.setColumnWidth(100);
+                grid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
                 grid.setGravity(View.TEXT_ALIGNMENT_CENTER);
                 grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                grid.setAdapter(new EntityAdapter(getContext(),resultToMap.get(name)));
+                grid.setAdapter(new GridAdapter(getContext(),resultToMap.get(name)));
                 linearLayout.addView(grid);
             }
         }

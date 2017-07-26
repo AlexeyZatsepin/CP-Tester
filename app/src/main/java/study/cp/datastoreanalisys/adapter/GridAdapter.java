@@ -5,23 +5,28 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class EntityAdapter extends BaseAdapter{
+public class GridAdapter extends BaseAdapter{
     private Context mContext;
     private List<List<String>> content;
 
-    public EntityAdapter(Context mContext, List<List<String>> values) {
+    public GridAdapter(Context mContext, List<List<String>> values) {
         this.mContext = mContext;
         content = values;
     }
 
     @Override
     public int getCount() {
-        return content.size()*3;
+        int size = 0;
+        for (List<String> i: content){
+            for (List<String> j: content){
+                size++;
+            }
+        }
+        return size;
     }
 
     @Override
@@ -39,8 +44,7 @@ public class EntityAdapter extends BaseAdapter{
         TextView tv;
         if (view == null) {
             tv = new TextView(mContext);
-            tv.setLayoutParams(new GridView.LayoutParams(85, 85));
-            tv.setPadding(8, 8, 8, 8);
+            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         } else {
             tv = (TextView) view;
         }
