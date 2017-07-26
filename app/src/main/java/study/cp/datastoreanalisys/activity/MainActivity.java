@@ -24,7 +24,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import study.cp.datastoreanalisys.DataAdapter;
+import study.cp.datastoreanalisys.adapter.DataAdapter;
 import study.cp.datastoreanalisys.R;
 import study.cp.datastoreanalisys.ContentProviderHelper;
 

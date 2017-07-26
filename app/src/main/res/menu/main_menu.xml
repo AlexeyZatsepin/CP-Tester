@@ -17,7 +17,8 @@
         android:id="@+id/play"
         android:icon="@drawable/ic_action_play"
         android:title="@string/menu_test_all"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="never"/>
+        <!--app:showAsAction="ifRoom|collapseActionView" -->
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"

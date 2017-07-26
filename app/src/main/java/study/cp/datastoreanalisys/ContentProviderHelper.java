@@ -11,9 +11,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static study.cp.datastoreanalisys.ViewHelper.getFilledTextView;
@@ -27,6 +29,7 @@ public final class ContentProviderHelper {
     public final static int NUMBER_QUERY = 2;
 
     private final static String TAG = ContentProviderHelper.class.getSimpleName();
+    private final static String STMT = "CREATE TABLE";
 
     public static Map<ProviderInfo,Integer> cache = new HashMap<>();
 
@@ -89,14 +92,13 @@ public final class ContentProviderHelper {
         return s;
     }
 
-    public static View parseResult(Context context, String result){
-        String stmt = "CREATE TABLE";
+    public static View parseResultToTableLayout(Context context, String result){
         TableLayout table = getTableView(context);
-        while (result.contains(stmt)){
-            int index = result.indexOf(stmt);
+        while (result.contains(STMT)){
+            int index = result.indexOf(STMT);
             result=result.substring(index);
             int next = result.indexOf("(");
-            String table_name = result.substring(stmt.length()+1,next);
+            String table_name = result.substring(STMT.length()+1,next);
             Log.v(TAG, "Table name "+table_name);
             TextView t_name = getFilledTextView(context,table_name);
             TableRow titleRow = getTableRow(context, t_name);
@@ -120,5 +122,33 @@ public final class ContentProviderHelper {
             result = result.substring(result.indexOf(")"));
         }
         return table;
+    }
+
+    public static Map<String,List<List<String>>> parseResultToMap(String result){
+        Map<String,List<List<String>>> tables = new HashMap<>();
+        while (result.contains(STMT)){
+            int index = result.indexOf(STMT);
+            result=result.substring(index);
+            int next = result.indexOf("(");
+            String table_name = result.substring(STMT.length()+1,next);
+            Log.v(TAG, "Table name "+table_name);
+            String[] toParse = result.substring(next+1,result.indexOf(")")).split(",");
+            List<List<String>> table = new ArrayList<>();
+            for (String item:toParse){
+                String[] keywords = item.trim().split(" ");
+                Log.v(TAG, "Row keywords "+Arrays.toString(keywords));
+                List<String> row = new ArrayList<>();
+                if (keywords.length>1){
+                    row.add(keywords[0]);
+                    row.add(keywords[1]);
+                    row.add(Arrays.asList(keywords)
+                            .subList(1,keywords.length).toString().replace("[","").replace("]","").replace(keywords[1],"-"));
+                }
+                table.add(row);
+            }
+            result = result.substring(result.indexOf(")"));
+            tables.put(table_name,table);
+        }
+        return tables;
     }
 }

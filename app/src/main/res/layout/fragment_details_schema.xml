@@ -11,7 +11,7 @@
     android:weightSum="1">
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -21,11 +21,23 @@
             android:orientation="vertical" />
 
     </ScrollView>
+    <!--<GridView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/gridview"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:columnWidth="90dp"-->
+        <!--android:numColumns="auto_fit"-->
+        <!--android:verticalSpacing="10dp"-->
+        <!--android:horizontalSpacing="10dp"-->
+        <!--android:stretchMode="columnWidth"-->
+        <!--android:gravity="center"-->
+        <!--/>-->
     <TextView
         android:id="@+id/tv_schema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:text="Schema unavailable"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/info_message"
+        android:textAlignment="center"
+        android:visibility="invisible" />
 
 </LinearLayout>

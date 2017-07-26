@@ -1,4 +1,4 @@
-package study.cp.datastoreanalisys;
+package study.cp.datastoreanalisys.adapter;
 
 
 import android.content.pm.ProviderInfo;
@@ -14,6 +14,8 @@ import com.dd.CircularProgressButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import study.cp.datastoreanalisys.R;
 
 import static study.cp.datastoreanalisys.ContentProviderHelper.contains;
 
