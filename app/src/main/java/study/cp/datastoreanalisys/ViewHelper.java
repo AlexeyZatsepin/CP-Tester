@@ -3,6 +3,7 @@ package study.cp.datastoreanalisys;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ public final class ViewHelper {
     public static TextView getFilledTextView(Context context,String text){
         TextView tv = new TextView(context);
         tv.setText(text);
+        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        tv.setTextColor(Color.parseColor("#dd2c00"));
+        tv.setTextSize(20);
         return tv;
     }
 

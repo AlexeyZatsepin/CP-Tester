@@ -20,6 +20,7 @@ import study.cp.datastoreanalisys.adapter.GridAdapter;
 import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
 import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 import static study.cp.datastoreanalisys.ContentProviderHelper.parseResultToMap;
+import static study.cp.datastoreanalisys.ViewHelper.getFilledTextView;
 
 public class SchemaFragment extends Fragment {
 
@@ -52,11 +53,7 @@ public class SchemaFragment extends Fragment {
             LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.ll);
             Map<String, List<List<String>>> resultToMap = parseResultToMap(result);
             for (String name: resultToMap.keySet()){
-                TextView tv = new TextView(getContext());
-                tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv.setTextColor(Color.GREEN);
-                tv.setTextSize(20);
-                tv.setText(name);
+                TextView tv = getFilledTextView(getContext(),name);
                 linearLayout.addView(tv);
                 GridView grid = new GridView(getContext());
                 grid.setNumColumns(3);
