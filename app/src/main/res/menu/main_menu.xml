@@ -13,12 +13,12 @@
         android:icon="@drawable/ic_refresh"
         android:title="@string/menu_refresh"
         app:showAsAction="ifRoom|collapseActionView" />
-    <item
-        android:id="@+id/play"
-        android:icon="@drawable/ic_action_play"
-        android:title="@string/menu_test_all"
-        app:showAsAction="never"/>
-        <!--app:showAsAction="ifRoom|collapseActionView" -->
+    <!--<item-->
+        <!--android:id="@+id/play"-->
+        <!--android:icon="@drawable/ic_action_play"-->
+        <!--android:title="@string/menu_test_all"-->
+        <!--app:showAsAction="never"/>-->
+        <!--&lt;!&ndash;app:showAsAction="ifRoom|collapseActionView" &ndash;&gt;-->
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"

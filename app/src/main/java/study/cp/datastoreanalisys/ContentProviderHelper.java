@@ -142,7 +142,7 @@ public final class ContentProviderHelper {
                     row.add(keywords[0]);
                     row.add(keywords[1]);
                     row.add(Arrays.asList(keywords)
-                            .subList(1,keywords.length).toString().replace("[","").replace("]","").replace(keywords[1],"-"));
+                            .subList(1,keywords.length).toString().replace("[","").replace("]","").replace(keywords[1],""));
                 }
                 table.add(row);
             }

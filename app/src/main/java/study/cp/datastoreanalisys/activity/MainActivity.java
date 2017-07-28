@@ -15,6 +15,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
         mAdapter = new ProviderAdapter(result,this);
         mRecyclerView.setAdapter(mAdapter);
         getSupportActionBar().setSubtitle("found: "+result.size());
+        runLayoutAnimation();
     }
 
     private void handleTestResponse(List<ProviderInfo> result) {
@@ -144,9 +147,11 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
         int id = item.getItemId();
         if(id == R.id.refresh){
             loadProviders();
-        }else if(id == R.id.play){
-            testProviders();
+            runLayoutAnimation();
         }
+//        else if(id == R.id.play){
+//            testProviders();
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -161,5 +166,15 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
         int status = getStatus(result);
         ContentProviderHelper.cache.put(info,status);
         return status;
+    }
+
+
+    private void runLayoutAnimation() {
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(getApplicationContext(), R.anim.layout_animation_fall_down);
+
+        mRecyclerView.setLayoutAnimation(controller);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+        mRecyclerView.scheduleLayoutAnimation();
     }
 }
