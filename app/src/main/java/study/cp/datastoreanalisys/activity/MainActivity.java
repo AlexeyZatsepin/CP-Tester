@@ -1,11 +1,14 @@
 package study.cp.datastoreanalisys.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +37,7 @@ import static study.cp.datastoreanalisys.ContentProviderHelper.getSQLResult;
 import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 
 public class MainActivity extends AppCompatActivity implements ProviderAdapter.OnAdapterItemClickListener {
+    private static final int MY_PERMISSIONS_REQUEST_READ_SMS = 0;
     private RecyclerView mRecyclerView;
     private CompositeDisposable mCompositeDisposable;
     private ProviderAdapter mAdapter;
@@ -42,13 +46,69 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        checkPermission();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mCompositeDisposable = new CompositeDisposable();
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
         initRecyclerView();
         loadProviders();
+    }
+
+    private void checkPermission(){
+        if (sp.getBoolean("SMS_testing",true)){
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_SMS)) {
+
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_SMS},
+                            MY_PERMISSIONS_REQUEST_READ_SMS);
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_SMS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // sms-related task you need to do.
+
+                } else {
+                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void initRecyclerView() {
@@ -80,7 +140,9 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
                 if (providerInfo.providers != null){
                     for (ProviderInfo provider : providerInfo.providers) {
                         if (provider.authority != null) {
-                            if (!sp.getBoolean("need_filter",false)){
+                            if (sp.getBoolean("need_filter",false)){
+                                info.add(provider);
+                            }else if(provider.readPermission!=null){
                                 info.add(provider);
                             }
                         }

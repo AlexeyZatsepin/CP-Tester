@@ -3,22 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="study.cp.datastoreanalisys">
 
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.READ_CALENDAR" />
-        <uses-permission android:name="android.permission.READ_CALL_LOG" />
-        <uses-permission android:name="android.permission.READ_CONTACTS" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-        <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
-        <uses-permission android:name="android.permission.READ_LOGS" />
-        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-        <uses-permission android:name="android.permission.READ_PROFILE" />
-        <uses-permission android:name="android.permission.READ_SMS" />
-        <uses-permission android:name="android.permission.READ_SOCIAL_STREAM" />
-        <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-        <uses-permission android:name="android.permission.READ_SYNC_STATS" />
-        <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
-    
-    
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

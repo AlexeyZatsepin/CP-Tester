@@ -5,14 +5,25 @@
         android:title="General">
         <CheckBoxPreference
             android:key="need_filter"
-            android:summary="Enable filtering"
+            android:summary="Show only vulnerable content providers"
             android:defaultValue="false"
             android:title="Filter"/>
 
-        <ListPreference
-            android:key="filter"
-            android:title="Filtering"
-            android:entries="@array/filters"
-            android:entryValues="@array/filters_values" />
+        <CheckBoxPreference
+            android:key="run_all_testing"
+            android:summary="Enable test all button"
+            android:defaultValue="false"
+            android:title="Complex test"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_other_settings"
+        android:title="Other">
+        <CheckBoxPreference
+            android:key="SMS_testing"
+            android:summary="Test app abilities on SMS content provider"
+            android:defaultValue="true"
+            android:title="Enable SMS testing"/>
     </PreferenceCategory>
 </PreferenceScreen>
