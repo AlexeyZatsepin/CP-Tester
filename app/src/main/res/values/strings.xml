@@ -35,4 +35,9 @@
     <string name="menu_settings">Settings</string>
     <string name="info_message">Schema unavailable</string>
     <string name="permission_denied">Permission wasn\'t granted, so you can\'t play with SMS</string>
+    <string name="sql_injection_info">
+        SQL injection is a code injection technique, used to attack data-driven applications. \n
+        Use "--" for comments. \n
+        Remember that you paste this code in query like SELECT "your phrase" FROM table_name WHERE something.
+    </string>
 </resources>

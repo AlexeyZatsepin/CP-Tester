@@ -18,18 +18,20 @@
 
     <ImageButton
         android:id="@+id/status_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         tools:src="@drawable/ic_succes"
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description" />
 
     <TextView
+        android:layout_marginTop="20dp"
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp" />
 
     <TextView
+        android:layout_marginTop="20dp"
         android:id="@+id/section_permissions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:layout_marginTop ="20dp"
         android:id="@+id/section_other"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

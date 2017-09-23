@@ -1,7 +1,6 @@
 package study.cp.datastoreanalisys.fragments;
 
 import android.content.pm.ProviderInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -47,8 +46,7 @@ public class SchemaFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_details_schema, container, false);
         if (getStatus(result)==100){
             //TODO add image view
-            TextView textView = (TextView) rootView.findViewById(R.id.tv_schema);
-            textView.setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.tv_schema).setVisibility(View.VISIBLE);
         } else {
             LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.ll);
             Map<String, List<List<String>>> resultToMap = parseResultToMap(result);
@@ -59,11 +57,11 @@ public class SchemaFragment extends Fragment {
                 grid.setNumColumns(3);
                 grid.setHorizontalSpacing(10);
                 grid.setVerticalSpacing(10);
-//                grid.setColumnWidth(100);
                 grid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
                 grid.setGravity(View.TEXT_ALIGNMENT_CENTER);
-                grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                grid.setAdapter(new GridAdapter(getContext(),resultToMap.get(name)));
+                List<List<String>> list = resultToMap.get(name);
+                grid.setAdapter(new GridAdapter(getContext(),list));
+                grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, list.size()*30)); //TODO: remove int value
                 linearLayout.addView(grid);
             }
         }
