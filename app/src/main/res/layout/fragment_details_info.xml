@@ -16,32 +16,203 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
-    <ImageButton
-        android:id="@+id/status_image"
+    <!--<ImageButton-->
+        <!--android:id="@+id/status_image"-->
+        <!--android:layout_width="match_parent"-->
+        <!--tools:src="@drawable/ic_succes"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:contentDescription="@string/content_description" />-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        tools:src="@drawable/ic_succes"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/content_description" />
+        android:layout_height="wrap_content">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="50dp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:text="@string/section_authority"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_label"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:text="app.example.provider"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:minWidth="60dp"
+            android:text="@string/section_permissions_read"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_permissions_read"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:layout_weight="1"
+            tools:text="app.example.provider.read"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:id="@+id/section_permissions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_marginTop ="20dp"
-        android:id="@+id/section_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:minWidth="60dp"
+            android:textColor="@color/colorAccent"
+            android:text="@string/section_permissions_write"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_permissions_write"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:layout_weight="1"
+            tools:text="app.example.provider.write"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:minWidth="50dp"
+            android:text="@string/section_package"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_package"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:text="app.example.provider.write"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:text="@string/section_process"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_process"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:text="zygote"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:text="@string/section_exported"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_exported"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:text="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/section_enabled"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/section_enabled"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            tools:text="false"/>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -33,17 +33,28 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         provider = getArguments().getParcelable(ARG_PROVIDER);
         View rootView = inflater.inflate(R.layout.fragment_details_info, container, false);
+
         TextView label = (TextView) rootView.findViewById(R.id.section_label);
-        label.setText(getString(R.string.section_authority, provider.authority));
-        TextView perms = (TextView) rootView.findViewById(R.id.section_permissions);
-        perms.setText(getString(R.string.section_permissions, provider.readPermission, provider.writePermission));
-        TextView other = (TextView) rootView.findViewById(R.id.section_other);
-        other.setText(getString(R.string.section_other, provider.packageName, provider.processName, provider.exported, provider.enabled));
-        ImageButton image = (ImageButton) rootView.findViewById(R.id.status_image);
-        if (ContentProviderHelper.cache.containsKey(provider)){
-            if (ContentProviderHelper.cache.get(provider)==-1) image.setImageResource(R.drawable.ic_succes);
-            else if (ContentProviderHelper.cache.get(provider)==100) image.setImageResource(R.drawable.ic_warning);
-        }else image.setVisibility(View.GONE);
+        label.setText(provider.authority);
+
+        TextView perms_read = (TextView) rootView.findViewById(R.id.section_permissions_read);
+        perms_read.setText(provider.readPermission);
+        TextView perms_write = (TextView) rootView.findViewById(R.id.section_permissions_write);
+        perms_write.setText(provider.writePermission);
+
+        TextView packageTv = (TextView) rootView.findViewById(R.id.section_package);
+        TextView processTv = (TextView) rootView.findViewById(R.id.section_process);
+        TextView enabledTv = (TextView) rootView.findViewById(R.id.section_enabled);
+        TextView exportedTv = (TextView) rootView.findViewById(R.id.section_exported);
+        packageTv.setText(provider.packageName);
+        processTv.setText(provider.processName);
+        enabledTv.setText(String.valueOf(provider.enabled));
+        exportedTv.setText(String.valueOf(provider.exported));
+//        ImageButton image = (ImageButton) rootView.findViewById(R.id.status_image);
+//        if (ContentProviderHelper.cache.containsKey(provider)){
+//            if (ContentProviderHelper.cache.get(provider)==-1) image.setImageResource(R.drawable.ic_succes);
+//            else if (ContentProviderHelper.cache.get(provider)==100) image.setImageResource(R.drawable.ic_warning);
+//        } else image.setVisibility(View.GONE);
         return rootView;
     }
 }

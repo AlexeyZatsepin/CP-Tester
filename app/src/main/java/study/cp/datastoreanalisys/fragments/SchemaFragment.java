@@ -61,7 +61,7 @@ public class SchemaFragment extends Fragment {
                 grid.setGravity(View.TEXT_ALIGNMENT_CENTER);
                 List<List<String>> list = resultToMap.get(name);
                 grid.setAdapter(new GridAdapter(getContext(),list));
-                grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, list.size()*30)); //TODO: remove int value
+                grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, list.size()*35)); //TODO: remove int value
                 linearLayout.addView(grid);
             }
         }

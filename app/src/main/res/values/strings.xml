@@ -5,9 +5,13 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="section_title">Content provider information:</string>
-    <string name="section_authority">Authority: %1$s</string>
-    <string name="section_permissions">Read permissions: %1$s \nWrite permissions: %2$s</string>
-    <string name="section_other">Package: %1$s \nProcess name: %2$s \nExported: %3$b \nEnabled: %4$b</string>
+    <string name="section_authority">Authority:</string>
+    <string name="section_permissions_read">Read permissions:</string>
+    <string name="section_permissions_write">Write permissions:</string>
+    <string name="section_package">Package:</string>
+    <string name="section_process">Process name:</string>
+    <string name="section_exported">Exported:</string>
+    <string name="section_enabled">Enabled:</string>
     <string name="sql_injection">* from sqlite_master--</string>
     <string name="help_info">Try SQL Injection:</string>
 
