@@ -1,5 +1,8 @@
 package study.cp.datastoreanalisys.fragments;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.pm.ProviderInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -70,18 +73,26 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                 button.setProgress(-1);
                 return;
             }
-            Drawable icon = getResources().getDrawable(R.drawable.ic_warning, null);
+            Drawable icon = null;
             int status = getStatus(result);
-            if (status==-1) {
-                icon = getResources().getDrawable(R.drawable.ic_succes, null);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                icon = getResources().getDrawable(R.drawable.ic_warning, null);
+                if (status==-1) {
+                    icon = getResources().getDrawable(R.drawable.ic_succes, null);
+                }
             }
             button.setProgress(status);
             new AlertDialog.Builder(getContext())
                     .setTitle("Result")
                     .setIcon(icon)
                     .setMessage(result)
-                    .setPositiveButton("Ok", (dialog, which) -> {
-                    }).create().show();
+                    .setNegativeButton("Copy", (dialogInterface, i) -> {
+                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("Result", result);
+                        clipboard.setPrimaryClip(clip);
+                    })
+                    .setPositiveButton("Ok", (dialog, which) -> {})
+                    .create().show();
         }catch (Throwable e){
             Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }finally {

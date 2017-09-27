@@ -32,7 +32,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:minWidth="50dp"
             android:textStyle="bold"
             android:maxLines="1"
@@ -45,8 +44,10 @@
             android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:layout_weight="1"
-            tools:text="app.example.provider"/>
+            android:paddingStart="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="app.example.provider.android.googlequicksearchbox.Provider"/>
     </LinearLayout>
 
     <View
@@ -62,12 +63,11 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
-            android:minWidth="60dp"
+            android:lines="2"
             android:text="@string/section_permissions_read"
             android:textSize="18sp" />
 
@@ -77,9 +77,11 @@
             android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:paddingStart="5dp"
             android:textColor="@color/colorAccent"
-            android:layout_weight="1"
-            tools:text="app.example.provider.read"/>
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE"/>
     </LinearLayout>
 
     <LinearLayout
@@ -89,11 +91,10 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:minWidth="60dp"
+            android:lines="2"
             android:textColor="@color/colorAccent"
             android:text="@string/section_permissions_write"
             android:textSize="18sp" />
@@ -104,9 +105,11 @@
             android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:paddingStart="5dp"
             android:textColor="@color/colorAccent"
-            android:layout_weight="1"
-            tools:text="app.example.provider.write"/>
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE"/>
     </LinearLayout>
 
     <View
@@ -124,20 +127,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:minWidth="50dp"
+            android:minWidth="70dp"
+            android:maxLines="1"
             android:text="@string/section_package"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/section_package"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingLeft="5dp"
             android:textSize="18sp"
-            android:layout_weight="1"
-            tools:text="app.example.provider.write"/>
+            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE.v" />
     </LinearLayout>
 
     <LinearLayout
