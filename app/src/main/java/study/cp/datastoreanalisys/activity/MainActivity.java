@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ import static study.cp.datastoreanalisys.ContentProviderHelper.getStatus;
 public class MainActivity extends AppCompatActivity implements ProviderAdapter.OnAdapterItemClickListener {
     private static final int MY_PERMISSIONS_REQUEST_READ_SMS = 0;
     private RecyclerView mRecyclerView;
+//    private SwipeRefreshLayout mRefreshLayout;
     private CompositeDisposable mCompositeDisposable;
     private ProviderAdapter mAdapter;
     private SharedPreferences sp;
@@ -54,6 +56,16 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
         mCompositeDisposable = new CompositeDisposable();
         initRecyclerView();
         loadProviders();
+//        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+//        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mRefreshLayout.setRefreshing(true);
+//                loadProviders();
+//                runLayoutAnimation();
+//                mRefreshLayout.setRefreshing(false);
+//            }
+//        });
     }
 
     private void checkPermission(){
@@ -125,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
                 .subscribe(this::handleResponse,this::handleError));
     }
 
-    private void testProviders() {
+    private void testProvidegitrs() {
         mCompositeDisposable.add(getProviders()
                 .observeOn(AndroidSchedulers.mainThread())//Schedulers.single()
                 .subscribeOn(Schedulers.io())
@@ -234,9 +246,10 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
     private void runLayoutAnimation() {
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(getApplicationContext(), R.anim.layout_animation_fall_down);
-
         mRecyclerView.setLayoutAnimation(controller);
         mRecyclerView.getAdapter().notifyDataSetChanged();
         mRecyclerView.scheduleLayoutAnimation();
     }
+
+
 }

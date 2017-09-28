@@ -1,221 +1,223 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".fragments.InfoFragment">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/section_title"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".fragments.InfoFragment">
 
-    <!--<ImageButton-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/section_title"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp" />
+
+        <!--<ImageButton-->
         <!--android:id="@+id/status_image"-->
         <!--android:layout_width="match_parent"-->
         <!--tools:src="@drawable/ic_succes"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:contentDescription="@string/content_description" />-->
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="50dp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:text="@string/section_authority"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingStart="5dp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            tools:text="app.example.provider.android.googlequicksearchbox.Provider"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:lines="2"
-            android:text="@string/section_permissions_read"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_permissions_read"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingStart="5dp"
-            android:textColor="@color/colorAccent"
-            android:maxLines="3"
-            android:ellipsize="end"
-            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:lines="2"
-            android:textColor="@color/colorAccent"
-            android:text="@string/section_permissions_write"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_permissions_write"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingStart="5dp"
-            android:textColor="@color/colorAccent"
-            android:maxLines="3"
-            android:ellipsize="end"
-            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:minWidth="70dp"
-            android:maxLines="1"
-            android:text="@string/section_package"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_package"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:paddingLeft="5dp"
-            android:textSize="18sp"
-            tools:text="app.example.provider.read.voicesearch.AUDIO_FILE.v" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:minWidth="50dp"
+                android:text="@string/section_authority"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingStart="5dp"
+                android:textSize="18sp"
+                tools:text="app.example.provider.android.googlequicksearchbox.Provider" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:text="@string/section_permissions_read"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_permissions_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:paddingStart="5dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                tools:text="app.example.provider.read.voicesearch.AUDIO_FILE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                android:text="@string/section_permissions_write"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_permissions_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:paddingStart="5dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                tools:text="app.example.provider.read.voicesearch.AUDIO_FILE" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:minWidth="70dp"
+                android:text="@string/section_package"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_package"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:paddingLeft="5dp"
+                android:textSize="18sp"
+                tools:text="app.example.provider.read.voicesearch.AUDIO_FILE.v" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/section_process"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_process"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="zygote asdadsasdasdasdasdasd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="@string/section_exported"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_exported"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/section_enabled"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section_enabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="false" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:text="@string/section_process"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_process"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            tools:text="zygote"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:text="@string/section_exported"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_exported"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            tools:text="true"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/section_enabled"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/section_enabled"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            tools:text="false"/>
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>
