@@ -12,3 +12,5 @@ android:
   - android-25
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+ 
+install: - TERM=dumb ./gradlew -s assembleDebug
