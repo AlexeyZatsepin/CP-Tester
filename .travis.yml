@@ -13,5 +13,8 @@ android:
   - extra-android-m2repository
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
    
+before_script:
+  touch release.properties
+  
 script:
   - "./gradlew assembleDebug --info"
