@@ -5,11 +5,14 @@ import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,11 +59,15 @@ public final class ContentProviderHelper {
         return sb.toString();
     }
 
-    public static String getSQLResult(Context context, ProviderInfo provider, String...query) {
+    public static String getSQLResult(Context context, ProviderInfo provider, String query) {
+        Bundle bundle = new Bundle();
+        bundle.putString("provider_name", provider.packageName);
+        bundle.putString("query", query);
+        FirebaseAnalytics.getInstance(context).logEvent("sql_injection", bundle);
         String s = "";
         try {
             Uri uri = Uri.parse("content://" + provider.authority);
-            Cursor c = context.getContentResolver().query(uri, query, null, null, null);
+            Cursor c = context.getContentResolver().query(uri, new String[]{ query }, null, null, null);
             int col_c = c != null ? c.getColumnCount() : 0;
             String[] Columns = new String[col_c];
             for (int i = 0; i < col_c; i++) {
