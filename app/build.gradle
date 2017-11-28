@@ -42,6 +42,12 @@ android {
             signingConfig signingConfigs.config
         }
     }
+    
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 def support_version = '25.3.1'
