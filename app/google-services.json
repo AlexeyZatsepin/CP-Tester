@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "483710468088",
+    "firebase_url": "https://cp-tester.firebaseio.com",
+    "project_id": "cp-tester",
+    "storage_bucket": "cp-tester.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483710468088:android:bf0e16c2aa2f09a8",
+        "android_client_info": {
+          "package_name": "study.network.datastoreanalisys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483710468088-t8tte0l6biudf5ufvuo4uj7s88fu6heg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB2Yu9owf9wBmEuKLjXp2ydyp2tQEyUW8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

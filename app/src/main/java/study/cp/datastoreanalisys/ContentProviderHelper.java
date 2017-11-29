@@ -5,11 +5,14 @@ import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,72 +59,44 @@ public final class ContentProviderHelper {
         return sb.toString();
     }
 
-    public static String getSQLResult(Context context, ProviderInfo provider, String...query) {
-        String s = "";
+    public static String getSQLResult(Context context, ProviderInfo provider, String query) {
+        Bundle bundle = new Bundle();
+        bundle.putString("provider_name", provider.packageName);
+        bundle.putString("query", query);
+        FirebaseAnalytics.getInstance(context).logEvent("sql_injection", bundle);
+        StringBuilder s = new StringBuilder();
         try {
             Uri uri = Uri.parse("content://" + provider.authority);
-            Cursor c = context.getContentResolver().query(uri, query, null, null, null);
+            Cursor c = context.getContentResolver().query(uri, new String[]{ query }, null, null, null);
             int col_c = c != null ? c.getColumnCount() : 0;
             String[] Columns = new String[col_c];
             for (int i = 0; i < col_c; i++) {
-                s += c.getColumnName(i);
-                s += ":";
+                s.append(c.getColumnName(i));
+                s.append(":");
                 Columns[i] = c.getColumnName(i);
             }
-            s += "\n";
+            s.append("\n");
             if (c != null && c.moveToFirst()) {
                 do {
                     for (int i = 0; i < col_c; i++) {
                         if (Columns[i].toLowerCase().contains("image")) {
                             byte[] blob = c.getBlob(i);
-                            s += bytesToHexString(blob);
+                            s.append(bytesToHexString(blob));
                         } else {
-                            s += c.getString(i);
+                            s.append(c.getString(i));
                         }
-                        s += ";";
+                        s.append(";");
                     }
-                    s += "\n";
+                    s.append("\n");
                 } while (c.moveToNext());
             }
             if (c != null) {
                 c.close();
             }
         } catch (Throwable e) {
-            s += e.getMessage();
+            s.append(e.getMessage());
         }
-        return s;
-    }
-
-    public static View parseResultToTableLayout(Context context, String result){
-        TableLayout table = getTableView(context);
-        while (result.contains(STMT)){
-            int index = result.indexOf(STMT);
-            result=result.substring(index);
-            int next = result.indexOf("(");
-            String table_name = result.substring(STMT.length()+1,next);
-            Log.v(TAG, "Table name "+table_name);
-            TextView t_name = getFilledTextView(context,table_name);
-            TableRow titleRow = getTableRow(context, t_name);
-            table.addView(titleRow);
-            String[] toParse = result.substring(next+1,result.indexOf(")")).split(",");
-            for (String item:toParse){
-                String[] keywords = item.trim().split(" ");
-                Log.v(TAG, "Row keywords "+Arrays.toString(keywords));
-                TextView row_name = getFilledTextView(context,keywords[0]);
-                TableRow tableRow;
-                if (keywords.length>1){
-                    TextView row_type = getFilledTextView(context,keywords[1]);
-                    TextView row_additional = getFilledTextView(context,Arrays.asList(keywords)
-                            .subList(1,keywords.length).toString().replace("[","").replace("]","").replace(keywords[1],"-"));
-                    tableRow = getTableRow(context, row_name, row_type, row_additional);
-                }else{
-                    tableRow = getTableRow(context, row_name);
-                }
-                table.addView(tableRow);
-            }
-            result = result.substring(result.indexOf(")"));
-        }
-        return table;
+        return s.toString();
     }
 
     public static Map<String,List<List<String>>> parseResultToMap(String result){
