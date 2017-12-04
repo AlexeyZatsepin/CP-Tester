@@ -35,6 +35,8 @@ general:
             - CI
 
 machine:
+    pre:
+        touch release.properties
     environment:
         ANDROID_HOME: /usr/local/android-sdk-linux
 
