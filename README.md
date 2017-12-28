@@ -1,4 +1,6 @@
 ## ContentProviders analysis
+[![CircleCI](https://circleci.com/gh/AlexeyZatsepin/CP-Tester.svg?style=svg&circle-token=824099daf5d3b051bdb523fe49c4dadf51240406)](https://circleci.com/gh/AlexeyZatsepin/CP-Tester)
+[![CircleCI](https://circleci.com/gh/AlexeyZatsepin/CP-Tester.svg?style=shield&circle-token=824099daf5d3b051bdb523fe49c4dadf51240406)](https://circleci.com/gh/AlexeyZatsepin/CP-Tester)
 
 Application helps developers test components of OS - ContentProviders
 
