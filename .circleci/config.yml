@@ -1,0 +1,51 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-25-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Run Tests
+          command: ./gradlew lint test
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
+
+general:
+    artifacts:
+        - /home/ubuntu/your-app-name/app/build/outputs/apk/
+    branches:
+        only:
+            - master
+            - CI
+
+machine:
+    pre:
+        touch release.properties
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
+
+dependencies:
+    override:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-21.1.2,android-21,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+
+test:
+    override:
+        - (./gradlew assemble):
+            timeout: 360
