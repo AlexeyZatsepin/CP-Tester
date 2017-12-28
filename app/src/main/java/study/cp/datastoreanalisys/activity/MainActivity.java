@@ -25,10 +25,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import study.cp.datastoreanalisys.adapter.ProviderAdapter;
 import study.cp.datastoreanalisys.R;
@@ -134,34 +136,52 @@ public class MainActivity extends AppCompatActivity implements ProviderAdapter.O
         mCompositeDisposable.add(getProviders()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse,this::handleError));
+                .subscribe(new Consumer<List<ProviderInfo>>() {
+                    @Override public void accept(List<ProviderInfo> providerInfos) throws Exception {
+                        handleResponse(providerInfos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable);
+                    }
+                }));
     }
 
     private void testProvidegitrs() {
         mCompositeDisposable.add(getProviders()
                 .observeOn(AndroidSchedulers.mainThread())//Schedulers.single()
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleTestResponse,this::handleError));
+                .subscribe(new Consumer<List<ProviderInfo>>() {
+                    @Override public void accept(List<ProviderInfo> providerInfos) throws Exception {
+                        handleTestResponse(providerInfos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override public void accept(Throwable throwable) throws Exception {
+                        handleError(throwable);
+                    }
+                }));
     }
 
 
     private Observable<List<ProviderInfo>> getProviders(){
-        return Observable.fromCallable(() -> {
-            List<ProviderInfo> info = new ArrayList<>();
-            for (PackageInfo providerInfo :getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS)){
-                if (providerInfo.providers != null){
-                    for (ProviderInfo provider : providerInfo.providers) {
-                        if (provider.authority != null) {
-                            if (sp.getBoolean("need_filter",false)){
-                                info.add(provider);
-                            }else if(provider.readPermission!=null){
-                                info.add(provider);
+        return Observable.fromCallable(new Callable<List<ProviderInfo>>() {
+            @Override public List<ProviderInfo> call() throws Exception {
+                List<ProviderInfo> info = new ArrayList<>();
+                for (PackageInfo providerInfo :getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS)){
+                    if (providerInfo.providers != null){
+                        for (ProviderInfo provider : providerInfo.providers) {
+                            if (provider.authority != null) {
+                                if (sp.getBoolean("need_filter",false)){
+                                    info.add(provider);
+                                }else if(provider.readPermission!=null){
+                                    info.add(provider);
+                                }
                             }
                         }
                     }
                 }
+                return info;
             }
-            return info;
         });
     }
 
