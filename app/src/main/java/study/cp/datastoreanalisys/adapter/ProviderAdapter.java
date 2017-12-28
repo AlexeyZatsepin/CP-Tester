@@ -24,8 +24,9 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
     private List<ProviderInfo> mFilteredList;
     private OnAdapterItemClickListener mListener;
 
-    public interface OnAdapterItemClickListener{
+    public interface OnAdapterItemClickListener {
         void onItemClick(ProviderInfo info);
+
         int onButtonClick(ProviderInfo info);
     }
 
@@ -34,6 +35,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         mFilteredList = androidList;
         mListener = listener;
     }
+
     @Override
     public ProviderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_row, parent, false);
@@ -41,16 +43,28 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ProviderAdapter.ViewHolder holder, int position) {
-        ProviderInfo provider = mFilteredList.get(position);
+    public void onBindViewHolder(final ProviderAdapter.ViewHolder holder, int position) {
+        final ProviderInfo provider = mFilteredList.get(position);
         holder.mAuthorityView.setText(provider.authority);
-        if (provider.readPermission!=null) holder.mTvReadPermissions.setText(provider.readPermission); else holder.mTvReadPermissions.setHeight(0);
-        if (provider.writePermission!=null)holder.mTvWritePermissions.setText(provider.writePermission); else holder.mTvWritePermissions.setHeight(0);
-        holder.itemView.setOnClickListener(view -> mListener.onItemClick(provider));
+        if (provider.readPermission != null)
+            holder.mTvReadPermissions.setText(provider.readPermission);
+        else holder.mTvReadPermissions.setHeight(0);
+        if (provider.writePermission != null)
+            holder.mTvWritePermissions.setText(provider.writePermission);
+        else holder.mTvWritePermissions.setHeight(0);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClick(provider);
+            }
+        });
         holder.button.setIndeterminateProgressMode(true);
-        holder.button.setOnClickListener(view -> {
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 holder.button.setProgress(50);
                 holder.button.setProgress(mListener.onButtonClick(provider));
+            }
         });
     }
 
@@ -71,7 +85,7 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
                 } else {
                     List<ProviderInfo> filteredList = new ArrayList<>();
                     for (ProviderInfo info : mFullList) {
-                        if (contains(info,charString)) {
+                        if (contains(info, charString)) {
                             filteredList.add(info);
                         }
                     }
@@ -90,19 +104,19 @@ public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ViewHo
         };
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mAuthorityView, mTvReadPermissions, mTvWritePermissions;
         private CircularProgressButton button;
 
         public ViewHolder(View view) {
             super(view);
-            mAuthorityView = (TextView)view.findViewById(R.id.tv_name);
-            mTvReadPermissions = (TextView)view.findViewById(R.id.tv_version);
-            mTvWritePermissions = (TextView)view.findViewById(R.id.tv_api_level);
+            mAuthorityView = (TextView) view.findViewById(R.id.tv_name);
+            mTvReadPermissions = (TextView) view.findViewById(R.id.tv_version);
+            mTvWritePermissions = (TextView) view.findViewById(R.id.tv_api_level);
             button = (CircularProgressButton) view.findViewById(R.id.progress);
         }
 
-        public CircularProgressButton getButton(){
+        public CircularProgressButton getButton() {
             return button;
         }
     }

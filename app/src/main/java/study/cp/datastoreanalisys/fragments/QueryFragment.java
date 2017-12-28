@@ -3,6 +3,7 @@ package study.cp.datastoreanalisys.fragments;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ProviderInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -60,16 +61,16 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        try{
-            String result;
+        try {
+            final String result;
             button.setProgress(50);
-            if (provider.exported){
-                if (isFile()){
+            if (provider.exported) {
+                if (isFile()) {
                     result = "This content provider are build on file";
-                }else {
-                    result = getSQLResult(getContext(), provider ,String.valueOf(et.getText()));
+                } else {
+                    result = getSQLResult(getContext(), provider, String.valueOf(et.getText()));
                 }
-            }else {
+            } else {
                 button.setProgress(-1);
                 return;
             }
@@ -77,7 +78,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
             int status = getStatus(result);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 icon = getResources().getDrawable(R.drawable.ic_warning, null);
-                if (status==-1) {
+                if (status == -1) {
                     icon = getResources().getDrawable(R.drawable.ic_succes, null);
                 }
             }
@@ -86,26 +87,33 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                     .setTitle("Result")
                     .setIcon(icon)
                     .setMessage(result)
-                    .setNegativeButton("Copy", (dialogInterface, i) -> {
-                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("Result", result);
-                        clipboard.setPrimaryClip(clip);
+                    .setNegativeButton("Copy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("Result", result);
+                            clipboard.setPrimaryClip(clip);
+                        }
                     })
-                    .setPositiveButton("Ok", (dialog, which) -> {})
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    })
                     .create().show();
-        }catch (Throwable e){
-            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }finally {
-            if(button.getProgress()==50){
+        } catch (Throwable e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        } finally {
+            if (button.getProgress() == 50) {
                 button.setProgress(-1);
             }
         }
 
     }
 
-    public boolean isFile(){
+    public boolean isFile() {
         try {
-            return getActivity().getContentResolver().openInputStream(Uri.parse("content://" + provider.authority))!=null;
+            return getActivity().getContentResolver().openInputStream(Uri.parse("content://" + provider.authority)) != null;
         } catch (FileNotFoundException e) {
             return false;
         }
