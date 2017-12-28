@@ -18,6 +18,18 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: Debug build
+          command: ./gradlew clean assembleDebug --no-daemon --stacktrace --info
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: apks/
+      - run:
+          name: Release build
+          command: ./gradlew assembleRelease
+      - store_artifacts:
+          path: app/build/outputs/apk/
+          destination: apks/
+      - run:
           name: Run Tests
           command: ./gradlew lint test
       - store_artifacts:
@@ -33,6 +45,7 @@ general:
         only:
             - master
             - CI
+            - without-jack
 
 machine:
     pre:
